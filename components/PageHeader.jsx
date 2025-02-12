@@ -7,7 +7,8 @@ const PageHeader = ({ title, step, indic }) => {
       </div>
       <div className="h-1 bg-[#0E464F] flex rounded-[5px]">
         <span
-          className={`h-1 inline-block bg-[#24A0B5] !w-[${indic}] rounded-[5px]`}></span>
+          className={`h-1 inline-block bg-[#24A0B5] rounded-[5px]`}
+          style={{ width: indic }}></span>
       </div>
     </header>
   );

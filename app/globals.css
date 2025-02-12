@@ -53,6 +53,24 @@ body {
   font-family: 'Road Rage', cursive;
 }
 
+.bg-ticket {
+  background: url('../public/Subtract.png');
+  background-size: cover;
+}
+.bg-dark-ticket {
+  background: rgba(3, 30, 33, 0.1);
+  backdrop-filter: blur(2px);
+}
+.img-container {
+  border: 4px solid rgba(36, 160, 181, 0.5);
+}
+.the-template {
+  grid-template: 1fr 1fr 1.45fr/1fr 1fr;
+}
+.last {
+  grid-area: 3/1/4/3;
+}
+
 @layer base {
   :root {
     --radius: 0.5rem;
