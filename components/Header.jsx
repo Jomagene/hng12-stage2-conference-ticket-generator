@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const Header = () => {
   return (
-    <header className="border border-[#197686] px-4 py-3 flex justify-between items-center rounded-xl sm:rounded-3xl mx-[7.5px] font-[JejuMyeongjo] bg-header">
+    <header className="border border-[#197686] px-4 py-3 flex justify-between items-center rounded-xl sm:rounded-3xl mx-[7.5px] fontJeju bg-header">
       <Image src="/logo.png" alt="This is the logo" width={91.8} height={36} />
       <nav className="h-[34px] hidden md:flex gap-4 items-center text-lg text-[#B3B3B3] p-[10px]">
         <span className="text-[white]">Event</span>

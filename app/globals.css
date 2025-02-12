@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Road+Rage&display=swap');
+@font-face {
+  font-family: 'Jeju Myeongjo';
+  src: url('/fonts/JejuMyeongjo-Regular.ttf') format('truetype');
+}
 
 @layer components {
   .dark-bg {
@@ -33,10 +36,6 @@
   }
 }
 
-.road-rage-regular {
-  font-family: 'Road Rage', cursive;
-}
-
 body {
   min-height: 100vh;
   color: white;
@@ -45,6 +44,13 @@ body {
 
 .ticket-option-input:checked + .ticket-option-card {
   background: #12464e;
+}
+
+.fontJeju {
+  font-family: 'Jeju Myeongjo';
+}
+.fontRage {
+  font-family: 'Road Rage', cursive;
 }
 
 @layer base {
