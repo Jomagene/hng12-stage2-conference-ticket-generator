@@ -46,3 +46,9 @@ body {
 .ticket-option-input:checked + .ticket-option-card {
   background: #12464e;
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
