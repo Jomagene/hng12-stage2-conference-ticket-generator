@@ -1,4 +1,4 @@
-const PageInfos = () => {
+const EventInfos = () => {
   return (
     <div className="px-6 py-4 md:py-6 rounded-3xl bg-ticket-info flex flex-col items-center gap-2">
       <p className="text-5xl md:text-[62px] road-rage-regular text-center">
@@ -16,4 +16,4 @@ const PageInfos = () => {
     </div>
   );
 };
-export default PageInfos;
+export default EventInfos;
