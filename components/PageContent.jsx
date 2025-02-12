@@ -1,3 +1,4 @@
+import NavigationBtn from './NavigationBtn';
 import PageInfos from './PageInfos';
 import TicketNumber from './TicketNumber';
 import TicketType from './TicketType';
@@ -9,6 +10,7 @@ const PageContent = () => {
       <div className="h-1 bg-[#07373F]"></div>
       <TicketType />
       <TicketNumber />
+      <NavigationBtn />
     </div>
   );
 };

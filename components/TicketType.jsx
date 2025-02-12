@@ -2,7 +2,7 @@ const TicketType = () => {
   return (
     <div className="flex flex-col gap-2">
       <span>Select Ticket Type:</span>
-      <div className="flex justify-between p-4 border border-[#07373F] bg-[#052228] rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between gap-6 p-4 border border-[#07373F] bg-[#052228] rounded-3xl">
         {[
           {
             price: 'Free',
@@ -20,7 +20,7 @@ const TicketType = () => {
         ].map((option, index) => (
           <label
             key={index}
-            className="border-[2px] border-[#197685] rounded-xl w-[31.5%] overflow-hidden">
+            className="border-[2px] border-[#197685] rounded-xl w-full sm:w-[31.5%] overflow-hidden hover:cursor-pointer">
             <input
               defaultChecked={index === 0}
               type="radio"
@@ -28,7 +28,7 @@ const TicketType = () => {
               value={option.value}
               className="hidden ticket-option-input"
             />
-            <div className="ticket-option-card p-3 flex flex-col gap-3">
+            <div className="ticket-option-card h-full p-3 flex flex-col gap-3">
               <p className="font-semibold text-2xl">{option.price}</p>
               <div>
                 <p className="text-[#FAFAFA]">{option.access}</p>
