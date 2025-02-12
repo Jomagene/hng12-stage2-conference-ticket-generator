@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import './globals.css';
+import '@fontsource/roboto';
 
 export const metadata = {
   title: 'Conference ticket generator',
@@ -10,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="antialiased font-[JejuMyeongjo] dark-bg">
+      <body className="antialiased font-[roboto] dark-bg">
         <main className="main-container">
           <Header />
           {children}
