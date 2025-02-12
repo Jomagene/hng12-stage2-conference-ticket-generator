@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Road+Rage&display=swap');
+
 @layer components {
   .dark-bg {
     background: radial-gradient(
@@ -10,6 +12,17 @@
         rgba(36, 160, 181, 0) 100%
       ),
       #02191d;
+  }
+  .bg-ticket-info {
+    border: 2px solid #07373f;
+
+    background: radial-gradient(
+        57.42% 106.59% at 14.02% 32.06%,
+        rgba(36, 160, 181, 0.2) 0%,
+        rgba(36, 160, 181, 0) 100%
+      ),
+      rgba(10, 12, 17, 0.1);
+    backdrop-filter: blur(7px);
   }
   .bg-header {
     background-color: rgba(5, 37, 44, 0.4);
@@ -20,8 +33,16 @@
   }
 }
 
+.road-rage-regular {
+  font-family: 'Road Rage', cursive;
+}
+
 body {
   min-height: 100vh;
   color: white;
   font-size: 16px;
+}
+
+.ticket-option-input:checked + .ticket-option-card {
+  background: #12464e;
 }
