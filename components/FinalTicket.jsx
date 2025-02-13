@@ -15,7 +15,7 @@ const FinalTicket = () => {
   console.log(ticket);
 
   return (
-    <div className="py-8">
+    <div className="py-8" id="final-ticket">
       <div className="bg-ticket flex flex-col items-center justify-between gap-[20px] h-[600px] w-[300px] m-auto p-[20px] rounded">
         <div className="h-[446px] w-[260px] p-[14px] border border-[#24A0B5] rounded-2xl bg-dark-ticket flex flex-col gap-[20px]">
           <div>

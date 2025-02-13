@@ -9,7 +9,9 @@ const NavigationBtn = ({
   link1,
   link2,
   isDisabled,
+  handleDownload,
   handleUpload,
+  final,
 }) => {
   const router = useRouter();
   return (
@@ -25,14 +27,22 @@ const NavigationBtn = ({
           {btn1}
         </button>
       )}
-
-      <Button
-        className="py-3 px-6 rounded-[8px] bg-[#24A0B5] fontJeju text-white flex-[1] flex items-center justify-center disabled:opacity-50"
-        type="submit"
-        disabed={isDisabled}
-        onClick={isDisabled ? handleUpload : () => router.push(link2)}>
-        {btn2}
-      </Button>
+      {final ? (
+        <Button
+          className="py-3 px-6 rounded-[8px] bg-[#24A0B5] fontJeju text-white flex-[1] flex items-center justify-center disabled:opacity-50"
+          type="button"
+          onClick={handleDownload}>
+          {btn2}
+        </Button>
+      ) : (
+        <Button
+          className="py-3 px-6 rounded-[8px] bg-[#24A0B5] fontJeju text-white flex-[1] flex items-center justify-center disabled:opacity-50"
+          type="submit"
+          disabed={isDisabled}
+          onClick={isDisabled ? handleUpload : () => router.push(link2)}>
+          {btn2}
+        </Button>
+      )}
     </div>
   );
 };
