@@ -13,9 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from './ui/form';
+import Image from 'next/image';
+import NavigationBtn from './NavigationBtn';
 
 const formSchema = z.object({
   emailAdress: z.string().email(),
+  attendeeName: z.string().min(1),
+  specialRequest: z.string().min(1),
 });
 
 const TextInputs = () => {
@@ -23,52 +27,90 @@ const TextInputs = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       emailAdress: '',
+      attendeeName: '',
+      specialRequest: '',
     },
   });
+  const isFormValid = form.formState.isValid;
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    return true;
+  };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="flex flex-col gap-8">
+        <FormField
+          control={form.control}
+          name="attendeeName"
+          render={({ field }) => {
+            return (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Enter your name</FormLabel>
+                <FormControl>
+                  <Input type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
         <FormField
           control={form.control}
           name="emailAdress"
           render={({ field }) => {
             return (
-              <>
-                <FormItem className="flex flex-col gap-2">
-                  <FormLabel>Enter your email *</FormLabel>
-                  <FormControl>
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Enter your email *</FormLabel>
+                <FormControl>
+                  <div className="relative h-12">
                     <Input
                       {...field}
                       type="email"
                       placeholder="hello@avioflagos.io"
+                      className="pl-10"
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-                <FormItem className="flex flex-col gap-2">
-                  <FormLabel>Enter your name</FormLabel>
-                  <FormControl>
-                    <Input type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-                <FormItem className="flex flex-col gap-2">
-                  <FormLabel>Special request?</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      type=""
-                      id="textarea"
-                      {...field}
-                      placeholder="Textarea"
+                    <Image
+                      src="/email.svg"
+                      width={24}
+                      height={24}
+                      alt="email icon"
+                      className="relative left-3 top-[-38px]"
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              </>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             );
           }}
+        />
+        <FormField
+          control={form.control}
+          name="specialRequest"
+          render={({ field }) => {
+            return (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Special request?</FormLabel>
+                <FormControl>
+                  <Textarea
+                    type=""
+                    id="textarea"
+                    {...field}
+                    placeholder="Textarea"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <NavigationBtn
+          btn1="Back"
+          btn2="Get My Free Ticket"
+          link1="/"
+          link2="/ticket-ready"
+          isDisabled={!isFormValid}
         />
       </form>
     </Form>

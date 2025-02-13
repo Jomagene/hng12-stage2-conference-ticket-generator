@@ -1,4 +1,3 @@
-import NavigationBtn from './NavigationBtn';
 import PhotoUploader from './PhotoUploader';
 import TextInputs from './TextInputs';
 
@@ -8,12 +7,6 @@ const AttendeeDetails = () => {
       <PhotoUploader />
       <div className="h-1 bg-[#07373F]"></div>
       <TextInputs />
-      <NavigationBtn
-        btn1="Back"
-        btn2="Get My Free Ticket"
-        link1="/"
-        link2="/ticket-ready"
-      />
     </div>
   );
 };

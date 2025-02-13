@@ -32,7 +32,7 @@
     backdrop-filter: blur(2px);
   }
   .main-container {
-    @apply lg:px-[120px] px-5 min-w-80 pt-[10px] sm:pt-6 flex flex-col gap-[18px] sm:gap-[46px];
+    @apply lg:px-[120px] px-5 min-w-80 py-[10px] sm:py-6 flex flex-col gap-[18px] sm:gap-[46px];
   }
 }
 
