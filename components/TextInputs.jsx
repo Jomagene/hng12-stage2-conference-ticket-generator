@@ -1,4 +1,5 @@
 'use client';
+import { useTicket } from '@/context/TicketContext';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 
@@ -33,8 +34,18 @@ const TextInputs = ({ handleUpload, file, uploading }) => {
     mode: 'onChange',
   });
   const isFormValid = form.formState.isValid;
+  const { ticket, updateTicket } = useTicket();
 
-  const handleSubmit = () => {
+  const handleSubmit = (data) => {
+    if (!updateTicket) {
+      console.error('updateTicket function is missing from context');
+      return;
+    }
+
+    updateTicket('profileName', data.attendeeName);
+    updateTicket('profileEmail', data.emailAdress);
+    updateTicket('specialRequest', data.specialRequest);
+
     return true;
   };
   return (

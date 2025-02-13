@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import './globals.css';
 import '@fontsource/roboto';
+import { TicketProvider } from '@/context/TicketContext';
 
 export const metadata = {
   title: 'Conference ticket generator',
@@ -18,10 +19,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased font-[roboto] dark-bg">
-        <main className="main-container">
-          <Header />
-          {children}
-        </main>
+        <TicketProvider>
+          <main className="main-container">
+            <Header />
+            {children}
+          </main>
+        </TicketProvider>
       </body>
     </html>
   );

@@ -11,13 +11,17 @@ import {
 } from '@/components/ui/select';
 import NavigationBtn from './NavigationBtn';
 import toast, { Toaster } from 'react-hot-toast';
+import { useTicket } from '@/context/TicketContext';
 
 const TicketForm = () => {
   const [ticketType, setTicketType] = React.useState('free');
   const [ticketNumber, setTicketNumber] = React.useState(1);
+  const { ticket, updateTicket } = useTicket();
 
   function handleSubmit(e) {
     e.preventDefault();
+    updateTicket('ticketInfosType', ticketType);
+    updateTicket('ticketQuantity', ticketNumber);
     toast.success(`Selected Ticket: ${ticketType}, Quantity: ${ticketNumber}`);
   }
   return (

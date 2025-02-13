@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { useTicket } from '@/context/TicketContext';
+
 import PhotoUploader from './PhotoUploader';
 import TextInputs from './TextInputs';
 import toast, { Toaster } from 'react-hot-toast';
@@ -8,6 +10,7 @@ const AttendeeDetails = () => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState(null);
+  const { ticket, updateTicket } = useTicket();
 
   const handleUpload = async () => {
     if (!file) return toast.error('Please select an image first.');
@@ -25,7 +28,9 @@ const AttendeeDetails = () => {
 
       const data = await response.json();
       setUploadedUrl(data.secure_url);
+      console.log(data.secure_url);
 
+      updateTicket('profileAvatar', data.secure_url);
       toast.success('Picture uploaded successfully!');
     } catch (error) {
       console.error('Upload failed :', error);
