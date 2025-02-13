@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import PhotoUploader from './PhotoUploader';
 import TextInputs from './TextInputs';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AttendeeDetails = () => {
   const [file, setFile] = useState(null);
@@ -9,7 +10,7 @@ const AttendeeDetails = () => {
   const [uploadedUrl, setUploadedUrl] = useState(null);
 
   const handleUpload = async () => {
-    if (!file) return alert('Please select an image first.');
+    if (!file) return toast.error('Please select an image first.');
     setUploading(true);
 
     const formData = new FormData();
@@ -25,10 +26,10 @@ const AttendeeDetails = () => {
       const data = await response.json();
       setUploadedUrl(data.secure_url);
 
-      alert('Upload successful!');
+      toast.success('Picture uploaded successfully!');
     } catch (error) {
       console.error('Upload failed :', error);
-      alert('Upload failed');
+      toast.error('Upload failed');
     } finally {
       setUploading(false);
     }
@@ -36,6 +37,7 @@ const AttendeeDetails = () => {
 
   return (
     <div className="bg-[#08252B] md:border md:p-6 border-[#0E464F] flex flex-col gap-8 rounded-[32px]">
+      <Toaster position="right-center" />
       <PhotoUploader file={file} setFile={setFile} uploading={uploading} />
       <div className="h-1 bg-[#07373F]"></div>
       <TextInputs

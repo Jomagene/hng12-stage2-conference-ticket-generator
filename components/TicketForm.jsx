@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import NavigationBtn from './NavigationBtn';
+import toast, { Toaster } from 'react-hot-toast';
 
 const TicketForm = () => {
   const [ticketType, setTicketType] = React.useState('free');
@@ -17,11 +18,12 @@ const TicketForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    alert(`Selected Ticket: ${ticketType}, Quantity: ${ticketNumber}`);
+    toast.success(`Selected Ticket: ${ticketType}, Quantity: ${ticketNumber}`);
   }
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
+        <Toaster position="bottom-right" />
         <span>Select Ticket Type:</span>
         <div className="flex flex-col sm:flex-row justify-between gap-6 p-4 border border-[#07373F] bg-[#052228] rounded-3xl">
           {[
