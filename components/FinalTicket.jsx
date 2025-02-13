@@ -28,7 +28,7 @@ const FinalTicket = () => {
             </p>
           </div>
           <div className="w-[140px] h-[140px] mx-auto rounded-xl img-container">
-            <Image src={profileAvatar} w={140} h={140} />
+            <Image src={profileAvatar} width={140} height={140} />
           </div>
           <div className="p-1 grid the-template h-40 w-[232px] bg-[#08343C] border border-[#133D44] rounded-[8px]">
             <div className="p-1 flex flex-col gap-1 border-r border-[#12464E]">

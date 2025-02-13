@@ -28,7 +28,6 @@ const AttendeeDetails = () => {
 
       const data = await response.json();
       setUploadedUrl(data.secure_url);
-      console.log(data.secure_url);
 
       updateTicket('profileAvatar', data.secure_url);
       toast.success('Picture uploaded successfully!');
@@ -48,7 +47,7 @@ const AttendeeDetails = () => {
       <TextInputs
         handleUpload={handleUpload}
         file={file}
-        uploading={uploading}
+        uploadedUrl={uploadedUrl}
       />
     </div>
   );
