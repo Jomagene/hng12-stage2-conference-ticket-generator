@@ -2,12 +2,9 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-const PhotoUploader = () => {
+const PhotoUploader = ({ setFile }) => {
   const [image, setImage] = useState(null);
   const [dragOver, setDragOver] = useState(false);
-  const [file, setFile] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState(null);
 
   const handleImageUpload = (file) => {
     if (file) {
@@ -33,32 +30,6 @@ const PhotoUploader = () => {
     event.preventDefault();
     setDragOver(false);
     handleImageUpload(event.dataTransfer.files[0]);
-  };
-
-  const handleUpload = async () => {
-    if (!file) return alert('Please select an image first.');
-    setUploading(true);
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'profile_upload');
-
-    try {
-      const response = await fetch(
-        'https://api.cloudinary.com/v1_1/ds0sysk6d/image/upload',
-        { method: 'POST', body: formData }
-      );
-
-      const data = await response.json();
-      setUploadedUrl(data.secure_url);
-
-      alert('Upload successful!');
-    } catch (error) {
-      console.error('Upload failed :', error);
-      alert('Upload failed');
-    } finally {
-      setUploading(false);
-    }
   };
 
   return (
@@ -100,12 +71,6 @@ const PhotoUploader = () => {
           )}
         </label>
       </div>
-      <button
-        onClick={handleUpload}
-        className="bg-[#24A0B5] text-white py-2 px-4 rounded-md disabled:opacity-50"
-        disabled={uploading || !file}>
-        {uploading ? 'Uploading...' : 'Upload to Cloudinary'}
-      </button>
     </div>
   );
 };

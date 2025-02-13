@@ -3,7 +3,14 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
-const NavigationBtn = ({ btn1, btn2, link1, link2, isDisabled }) => {
+const NavigationBtn = ({
+  btn1,
+  btn2,
+  link1,
+  link2,
+  isDisabled,
+  handleUpload,
+}) => {
   const router = useRouter();
   return (
     <div className="flex gap-4 sm:gap-6 flex-col sm:flex-row">
@@ -20,9 +27,10 @@ const NavigationBtn = ({ btn1, btn2, link1, link2, isDisabled }) => {
       )}
 
       <Button
-        className="py-3 px-6 rounded-[8px] bg-[#24A0B5] fontJeju text-white flex-[1] flex items-center justify-center"
+        className="py-3 px-6 rounded-[8px] bg-[#24A0B5] fontJeju text-white flex-[1] flex items-center justify-center disabled:opacity-50"
         type="submit"
-        onClick={() => isDisabled || router.push(link2)}>
+        disabed={isDisabled}
+        onClick={isDisabled ? handleUpload : () => router.push(link2)}>
         {btn2}
       </Button>
     </div>

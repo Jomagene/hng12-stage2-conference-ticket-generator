@@ -22,7 +22,7 @@ const formSchema = z.object({
   specialRequest: z.string().min(1),
 });
 
-const TextInputs = () => {
+const TextInputs = ({ handleUpload, file, uploading }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,6 +30,7 @@ const TextInputs = () => {
       attendeeName: '',
       specialRequest: '',
     },
+    mode: 'onChange',
   });
   const isFormValid = form.formState.isValid;
 
@@ -110,7 +111,8 @@ const TextInputs = () => {
           btn2="Get My Free Ticket"
           link1="/"
           link2="/ticket-ready"
-          isDisabled={!isFormValid}
+          isDisabled={!isFormValid || uploading || !file}
+          handleUpload={handleUpload}
         />
       </form>
     </Form>
