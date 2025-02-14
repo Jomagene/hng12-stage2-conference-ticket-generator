@@ -16,7 +16,7 @@ const NavigationBtn = ({
 }) => {
   const router = useRouter();
   return (
-    <div className="flex gap-4 sm:gap-6 flex-col sm:flex-row">
+    <div className="flex gap-4 sm:gap-6 flex-col-reverse sm:flex-row">
       <TransitionLink
         href={link1}
         className="py-3 px-6 rounded-[8px] border border-[#24A0B5] fontJeju text-[#24A0B5] flex-[1] flex items-center justify-center btn">

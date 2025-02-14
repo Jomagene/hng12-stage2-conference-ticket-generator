@@ -7,13 +7,14 @@ import TextInputs from './TextInputs';
 import toast, { Toaster } from 'react-hot-toast';
 
 const AttendeeDetails = () => {
+  const { ticket, updateTicket } = useTicket();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState(null);
-  const { ticket, updateTicket } = useTicket();
+  const [uploadedUrl, setUploadedUrl] = useState(ticket.profileAvatar);
 
   const handleUpload = async () => {
-    if (!file) return toast.error('Please select an image first.');
+    if (!file && !uploadedUrl)
+      return toast.error('Please select an image first.');
     setUploading(true);
     const toastId = toast.loading('Uploading picture...');
 
@@ -55,7 +56,12 @@ const AttendeeDetails = () => {
   return (
     <div className="bg-[#08252B] md:border md:p-6 border-[#0E464F] flex flex-col gap-8 rounded-[32px]">
       <Toaster position="right-center" />
-      <PhotoUploader file={file} setFile={setFile} uploading={uploading} />
+      <PhotoUploader
+        file={file}
+        setFile={setFile}
+        uploading={uploading}
+        uploadedUr={uploadedUrl}
+      />
       <div className="h-1 bg-[#07373F]"></div>
       <TextInputs
         handleUpload={handleUpload}
