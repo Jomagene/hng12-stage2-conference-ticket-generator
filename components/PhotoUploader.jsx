@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
-const PhotoUploader = ({ setFile }) => {
+const PhotoUploader = ({ setFile, uploadedUrl }) => {
   const [image, setImage] = useState('');
   const [dragOver, setDragOver] = useState(false);
 
@@ -62,9 +62,9 @@ const PhotoUploader = ({ setFile }) => {
           onDrop={handleDrop}>
           {image ? (
             <Image
-              src={image}
-              height={264}
-              width={264}
+              src={image || uploadedUrl}
+              height={240}
+              width={240}
               alt="Uploaded preview"
             />
           ) : (

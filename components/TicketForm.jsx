@@ -15,8 +15,14 @@ import { useTicket } from '@/context/TicketContext';
 
 const TicketForm = () => {
   const { ticket, updateTicket } = useTicket();
+
   const [ticketType, setTicketType] = React.useState(ticket.ticketInfosType);
   const [ticketNumber, setTicketNumber] = React.useState(ticket.ticketQuantity);
+
+  React.useEffect(() => {
+    setTicketType(ticket.ticketInfosType);
+    setTicketNumber(ticket.ticketQuantity);
+  }, [ticket]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,6 +30,7 @@ const TicketForm = () => {
     updateTicket('ticketQuantity', ticketNumber);
     toast.success(`Selected Ticket: ${ticketType}, Quantity: ${ticketNumber}`);
   }
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
@@ -51,13 +58,12 @@ const TicketForm = () => {
             },
           ].map((option, index) => (
             <label
+              key={index}
               tabIndex="0"
               onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
+                if (e.key === 'Enter' || e.key === ' ')
                   setTicketType(option.value);
-                }
               }}
-              key={index}
               className="border-[2px] border-[#197685] rounded-xl w-full sm:w-[31.5%] overflow-hidden hover:cursor-pointer btn">
               <input
                 checked={ticketType === option.value}
@@ -81,22 +87,23 @@ const TicketForm = () => {
 
       <div className="flex flex-col gap-2">
         <p>Number of Tickets</p>
-        <Select onValueChange={setTicketNumber}>
+        <Select value={ticketNumber} onValueChange={setTicketNumber}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="1" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Numbers</SelectLabel>
-              <SelectItem value={1}>1</SelectItem>
-              <SelectItem value={2}>2</SelectItem>
-              <SelectItem value={3}>3</SelectItem>
-              <SelectItem value={4}>4</SelectItem>
-              <SelectItem value={5}>5</SelectItem>
+              {[1, 2, 3, 4, 5].map((num) => (
+                <SelectItem key={num} value={num}>
+                  {num}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
+
       <NavigationBtn
         btn1="Cancel"
         btn2="Next"

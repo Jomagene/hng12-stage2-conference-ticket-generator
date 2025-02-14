@@ -60,7 +60,7 @@ const AttendeeDetails = () => {
         file={file}
         setFile={setFile}
         uploading={uploading}
-        uploadedUr={uploadedUrl}
+        uploadedUrl={uploadedUrl}
       />
       <div className="h-1 bg-[#07373F]"></div>
       <TextInputs

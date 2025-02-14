@@ -1,59 +1,54 @@
 'use client';
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect, useMemo } from 'react';
 
-// Create context
-const TicketContext = createContext();
+const DEFAULT_TICKET = {
+  ticketInfosType: 'free',
+  ticketQuantity: 1,
+  profileName: '',
+  profileEmail: '',
+  profileAvatar: '',
+  specialRequest: '',
+};
 
-// Provider component
+const TicketContext = createContext(null);
+
+const loadStoredTicket = () => {
+  if (typeof window === 'undefined') return DEFAULT_TICKET;
+  try {
+    const storedTicket = localStorage.getItem('ticket');
+    return storedTicket ? JSON.parse(storedTicket) : DEFAULT_TICKET;
+  } catch (error) {
+    console.error('Error loading ticket from localStorage:', error);
+    return DEFAULT_TICKET;
+  }
+};
+
 export const TicketProvider = ({ children }) => {
-  // Load ticket data from localStorage or set default values
-  const [ticket, setTicket] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const storedTicket = localStorage.getItem('ticket');
-      return storedTicket
-        ? JSON.parse(storedTicket)
-        : {
-            ticketInfosType: 'free',
-            ticketQuantity: 1,
-            profileName: '',
-            profileEmail: '',
-            profileAvatar: '',
-            specialRequest: '',
-          };
-    }
-    return {
-      ticketInfosType: 'free',
-      ticketQuantity: 1,
-      profileName: '',
-      profileEmail: '',
-      profileAvatar: '',
-      specialRequest: '',
-    };
-  });
+  const [ticket, setTicket] = useState(loadStoredTicket);
 
-  // Function to update any profile field
-  const updateTicket = (key, val) => {
-    setTicket((prev) => {
-      const updatedTicket = { ...prev, [key]: val };
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('ticket', JSON.stringify(updatedTicket));
-      }
-      return updatedTicket;
-    });
-  };
-
-  // Sync state with localStorage when ticket changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('ticket', JSON.stringify(ticket));
     }
   }, [ticket]);
 
+  const updateTicket = (key, val) => {
+    setTicket((prev) => ({ ...prev, [key]: val }));
+  };
+
+  const contextValue = useMemo(() => ({ ticket, updateTicket }), [ticket]);
+
   return (
-    <TicketContext.Provider value={{ ticket, updateTicket }}>
+    <TicketContext.Provider value={contextValue}>
       {children}
     </TicketContext.Provider>
   );
 };
 
-export const useTicket = () => useContext(TicketContext);
+export const useTicket = () => {
+  const context = useContext(TicketContext);
+  if (!context) {
+    throw new Error('useTicket must be used within a TicketProvider');
+  }
+  return context;
+};

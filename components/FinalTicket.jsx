@@ -26,12 +26,13 @@ const FinalTicket = () => {
               <span>📅 March 15, 2025 | 7:00 PM</span>
             </p>
           </div>
-          <div className="w-[140px] h-[140px] mx-auto rounded-xl img-container">
+          <div className="w-[140px] h-[140px] mx-auto rounded-xl img-container overflow-hidden">
             <Image
               src={profileAvatar}
               width={140}
               height={140}
               alt="profile avatar"
+              className="object-cover"
             />
           </div>
           <div className="p-1 grid the-template h-40 w-[232px] bg-[#08343C] border border-[#133D44] rounded-[8px]">
