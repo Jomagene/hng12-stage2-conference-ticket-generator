@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Header = () => {
   return (
-    <header className="border border-[#197686] px-4 py-3 flex justify-between items-center rounded-xl sm:rounded-3xl fontJeju bg-header w-full max-w-[1200px] m-auto">
+    <header className="border border-[#197686] px-1 sm:px-4 py-3 flex justify-between items-center rounded-xl sm:rounded-3xl fontJeju bg-header w-full max-w-[1200px] m-auto">
       <Link href="/">
         <Image
           src="/logo.png"
