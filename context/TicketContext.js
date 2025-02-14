@@ -15,19 +15,19 @@ export const TicketProvider = ({ children }) => {
         : {
             ticketInfosType: 'free',
             ticketQuantity: 1,
-            profileName: null,
-            profileEmail: null,
-            profileAvatar: null,
-            specialRequest: null,
+            profileName: '',
+            profileEmail: '',
+            profileAvatar: '',
+            specialRequest: '',
           };
     }
     return {
       ticketInfosType: 'free',
       ticketQuantity: 1,
-      profileName: null,
-      profileEmail: null,
-      profileAvatar: null,
-      specialRequest: null,
+      profileName: '',
+      profileEmail: '',
+      profileAvatar: '',
+      specialRequest: '',
     };
   });
 

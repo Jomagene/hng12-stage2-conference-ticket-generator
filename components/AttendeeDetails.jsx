@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const AttendeeDetails = () => {
   const { ticket, updateTicket } = useTicket();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState('');
   const [uploading, setUploading] = useState(false);
   const [uploadedUrl, setUploadedUrl] = useState(ticket.profileAvatar);
 

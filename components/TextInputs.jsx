@@ -122,7 +122,7 @@ const TextInputs = ({ handleUpload, file, uploadedUrl }) => {
           btn2="Get My Free Ticket"
           link1="/"
           link2="/ticket-ready"
-          isDisabled={!isFormValid || uploadedUrl == null || !file}
+          isDisabled={!isFormValid || uploadedUrl == '' || !file}
           handleUpload={handleUpload}
         />
       </form>

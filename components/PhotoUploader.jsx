@@ -5,7 +5,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 
 const PhotoUploader = ({ setFile }) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
   const [dragOver, setDragOver] = useState(false);
 
   const handleImageUpload = (file) => {
