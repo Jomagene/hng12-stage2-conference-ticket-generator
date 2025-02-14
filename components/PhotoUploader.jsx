@@ -34,6 +34,11 @@ const PhotoUploader = ({ setFile }) => {
     handleImageUpload(event.dataTransfer.files[0]);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ')
+      document.getElementById('profile-pic').click();
+  };
+
   return (
     <div className="p-6 pb-12 rounded-3xl bg-[#052228] flex flex-col border border-[#07373F] gap-8">
       <p>Upload Profile Photo</p>
@@ -49,6 +54,8 @@ const PhotoUploader = ({ setFile }) => {
         />
         <Label
           htmlFor="profile-pic"
+          tabIndex="0"
+          onKeyDown={handleKeyDown}
           className="border-4 border-[#24A0B580] rounded-[32px] bg-[#0E464F] w-60 h-60 overflow-hidden flex flex-col gap-4 justify-center items-center relative top-[-220px] mx-auto"
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}

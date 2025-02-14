@@ -51,6 +51,12 @@ const TicketForm = () => {
             },
           ].map((option, index) => (
             <label
+              tabIndex="0"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  setTicketType(option.value);
+                }
+              }}
               key={index}
               className="border-[2px] border-[#197685] rounded-xl w-full sm:w-[31.5%] overflow-hidden hover:cursor-pointer">
               <input
