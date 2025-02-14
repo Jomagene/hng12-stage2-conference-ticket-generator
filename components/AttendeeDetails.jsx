@@ -37,9 +37,12 @@ const AttendeeDetails = () => {
         position: 'right-center',
       });
       setTimeout(() => {
-        toast('Click again to see your designed ticket', {
-          icon: '🤩',
-        });
+        toast(
+          'Click on the button Get My free Ticket again to see your designed ticket',
+          {
+            icon: '🤩',
+          }
+        );
       }, 2500);
     } catch (error) {
       console.error('Upload failed :', error);
