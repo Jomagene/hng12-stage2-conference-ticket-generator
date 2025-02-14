@@ -1,6 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 
 const PhotoUploader = ({ setFile }) => {
   const [image, setImage] = useState(null);
@@ -37,7 +39,7 @@ const PhotoUploader = ({ setFile }) => {
       <p>Upload Profile Photo</p>
       <div className="relative h-[200px]">
         <div className="w-full h-[200px] bg-[#00000033]"></div>
-        <input
+        <Input
           type="file"
           name="profile-pic"
           id="profile-pic"
@@ -45,7 +47,7 @@ const PhotoUploader = ({ setFile }) => {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <label
+        <Label
           htmlFor="profile-pic"
           className="border-4 border-[#24A0B580] rounded-[32px] bg-[#0E464F] w-60 h-60 overflow-hidden flex flex-col gap-4 justify-center items-center relative top-[-220px] mx-auto"
           onDragOver={handleDragOver}
@@ -69,7 +71,7 @@ const PhotoUploader = ({ setFile }) => {
               <p className="text-center">Drag & drop or click to Upload</p>
             </>
           )}
-        </label>
+        </Label>
       </div>
     </div>
   );

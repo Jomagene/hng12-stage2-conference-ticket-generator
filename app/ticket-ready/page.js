@@ -3,7 +3,7 @@ import FinalTicket from '@/components/FinalTicket';
 import NavigationBtn from '@/components/NavigationBtn';
 import PageHeader from '@/components/PageHeader';
 import html2canvas from 'html2canvas';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function PageThree() {
   const handleDownload = async () => {
@@ -17,12 +17,14 @@ export default function PageThree() {
       link.href = dataURL;
       link.download = 'ticket.png';
       link.click();
+      toast.success('ticket downloading...');
     } catch (error) {
       toast.error('Error downloading ticket:', error);
     }
   };
   return (
     <section className="border border-[#197686] bg-[#08252B] md:bg-[#041E23] rounded-3xl sm:rounded-[40px] p-6 md:p-12 flex flex-col gap-8 md:w-[700px] w-full mx-auto">
+      <Toaster />
       <PageHeader title="Ready" step={3} indic="232px" />
 
       <div className="flex flex-col items-center gap-3 md:gap-4">

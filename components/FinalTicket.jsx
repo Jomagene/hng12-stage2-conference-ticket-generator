@@ -12,7 +12,6 @@ const FinalTicket = () => {
     profileAvatar,
     specialRequest,
   } = ticket;
-  console.log(ticket);
 
   return (
     <div className="py-8" id="final-ticket">

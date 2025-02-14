@@ -43,7 +43,7 @@ const AttendeeDetails = () => {
             icon: '🤩',
           }
         );
-      }, 2500);
+      }, 4000);
     } catch (error) {
       console.error('Upload failed :', error);
       toast.error('Upload failed');
