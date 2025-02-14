@@ -24,17 +24,17 @@ const formSchema = z.object({
 });
 
 const TextInputs = ({ handleUpload, file, uploadedUrl }) => {
+  const { ticket, updateTicket } = useTicket();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      emailAdress: '',
-      attendeeName: '',
-      specialRequest: '',
+      emailAdress: ticket.profileEmail,
+      attendeeName: ticket.profileName,
+      specialRequest: ticket.specialRequest,
     },
     mode: 'onChange',
   });
   const isFormValid = form.formState.isValid;
-  const { ticket, updateTicket } = useTicket();
 
   const handleSubmit = (data) => {
     if (!updateTicket) {

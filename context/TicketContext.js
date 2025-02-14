@@ -14,20 +14,20 @@ export const TicketProvider = ({ children }) => {
         ? JSON.parse(storedTicket)
         : {
             ticketInfosType: 'free',
-            ticketQuantity: 0,
-            profileName: '',
-            profileEmail: '',
-            profileAvatar: '',
-            specialRequest: '',
+            ticketQuantity: 1,
+            profileName: null,
+            profileEmail: null,
+            profileAvatar: null,
+            specialRequest: null,
           };
     }
     return {
       ticketInfosType: 'free',
-      ticketQuantity: 0,
-      profileName: '',
-      profileEmail: '',
-      profileAvatar: '',
-      specialRequest: '',
+      ticketQuantity: 1,
+      profileName: null,
+      profileEmail: null,
+      profileAvatar: null,
+      specialRequest: null,
     };
   });
 

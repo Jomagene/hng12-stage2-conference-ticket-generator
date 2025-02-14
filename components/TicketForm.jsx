@@ -14,9 +14,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useTicket } from '@/context/TicketContext';
 
 const TicketForm = () => {
-  const [ticketType, setTicketType] = React.useState('free');
-  const [ticketNumber, setTicketNumber] = React.useState(1);
   const { ticket, updateTicket } = useTicket();
+  const [ticketType, setTicketType] = React.useState(ticket.ticketInfosType);
+  const [ticketNumber, setTicketNumber] = React.useState(ticket.ticketQuantity);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -58,7 +58,7 @@ const TicketForm = () => {
                 }
               }}
               key={index}
-              className="border-[2px] border-[#197685] rounded-xl w-full sm:w-[31.5%] overflow-hidden hover:cursor-pointer">
+              className="border-[2px] border-[#197685] rounded-xl w-full sm:w-[31.5%] overflow-hidden hover:cursor-pointer btn">
               <input
                 checked={ticketType === option.value}
                 type="radio"

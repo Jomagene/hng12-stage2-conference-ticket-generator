@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Header = () => {
   return (
     <header className="border border-[#197686] px-1 sm:px-4 py-3 flex justify-between items-center rounded-xl sm:rounded-3xl fontJeju bg-header w-full max-w-[1200px] m-auto">
-      <Link href="/">
+      <Link href="/" className="btn p-2 rounded-xl">
         <Image
           src="/logo.png"
           alt="This is the logo"
@@ -32,7 +32,7 @@ const Header = () => {
       </nav>
       <button
         className="flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 
-       bg-[white] rounded-xl text-[#0A0C11] hover:scale-105 duration-500">
+       bg-[white] rounded-xl text-[#0A0C11] hover:scale-105 duration-500 btn">
         <p className="!text-sm sm:!text-base">MY TICKETS</p>
         <img src="/arrow.svg" alt="This is the logo" className="w-4" />
       </button>
