@@ -61,7 +61,7 @@ const TextInputs = ({ handleUpload, file, uploadedUrl }) => {
               <FormItem className="flex flex-col gap-2">
                 <FormLabel>Enter your name</FormLabel>
                 <FormControl>
-                  <Input type="text" {...field} />
+                  <Input type="text" {...field} className="btn" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -81,7 +81,7 @@ const TextInputs = ({ handleUpload, file, uploadedUrl }) => {
                       {...field}
                       type="email"
                       placeholder="hello@avioflagos.io"
-                      className="pl-10"
+                      className="pl-10 btn"
                     />
                     <Image
                       src="/email.svg"
@@ -110,6 +110,7 @@ const TextInputs = ({ handleUpload, file, uploadedUrl }) => {
                     id="textarea"
                     {...field}
                     placeholder="Textarea"
+                    className="btn"
                   />
                 </FormControl>
                 <FormMessage />
