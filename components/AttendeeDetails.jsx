@@ -15,6 +15,7 @@ const AttendeeDetails = () => {
   const handleUpload = async () => {
     if (!file) return toast.error('Please select an image first.');
     setUploading(true);
+    const toastId = toast.loading('Uploading picture...');
 
     const formData = new FormData();
     formData.append('file', file);
@@ -30,7 +31,16 @@ const AttendeeDetails = () => {
       setUploadedUrl(data.secure_url);
 
       updateTicket('profileAvatar', data.secure_url);
-      toast.success('Picture uploaded successfully!');
+      toast.dismiss(toastId);
+      toast.success('Picture uploaded successfully!', {
+        duration: 2000,
+        position: 'right-center',
+      });
+      setTimeout(() => {
+        toast('Click again to see your designed ticket', {
+          icon: '🤩',
+        });
+      }, 2500);
     } catch (error) {
       console.error('Upload failed :', error);
       toast.error('Upload failed');
