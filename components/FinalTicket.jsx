@@ -46,7 +46,9 @@ const FinalTicket = () => {
               <span className="text-[10px] opacity-[0.33]">
                 Enter your email *
               </span>
-              <p className="text-xs font-bold">{profileEmail}</p>
+              <p className="text-xs font-bold break-all overflow-y-clip">
+                {profileEmail}
+              </p>
             </div>
             <div className="p-1 flex flex-col gap-1 border-t border-r border-[#12464E]">
               <span className="text-[10px] opacity-[0.33]">Ticket Type </span>
@@ -60,7 +62,9 @@ const FinalTicket = () => {
               <span className="text-[10px] opacity-[0.33]">
                 Special request
               </span>
-              <p className="text-[10px]">{specialRequest}</p>
+              <p className="text-[10px] overflow-y-clip break-all">
+                {specialRequest}
+              </p>
             </div>
           </div>
         </div>
