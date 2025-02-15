@@ -62,7 +62,14 @@ const PhotoUploader = ({ setFile, uploadedUrl }) => {
           onDrop={handleDrop}>
           {image ? (
             <Image
-              src={image || uploadedUrl}
+              src={image}
+              height={240}
+              width={240}
+              alt="Uploaded preview"
+            />
+          ) : uploadedUrl ? (
+            <Image
+              src={uploadedUrl}
               height={240}
               width={240}
               alt="Uploaded preview"
