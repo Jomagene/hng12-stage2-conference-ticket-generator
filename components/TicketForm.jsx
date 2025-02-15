@@ -95,7 +95,7 @@ const TicketForm = () => {
             <SelectGroup>
               <SelectLabel>Numbers</SelectLabel>
               {[1, 2, 3, 4, 5].map((num) => (
-                <SelectItem key={num} value={num}>
+                <SelectItem key={num} value={String(num)}>
                   {num}
                 </SelectItem>
               ))}
