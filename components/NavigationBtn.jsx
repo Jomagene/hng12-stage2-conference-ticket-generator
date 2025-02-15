@@ -1,9 +1,8 @@
 'use client';
-import Link from 'next/link';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import TransitionLink from '@/lib/TransitionLink';
-import { Ticket } from 'lucide-react';
+import { useTicket } from '@/context/TicketContext';
 
 const NavigationBtn = ({
   btn1,

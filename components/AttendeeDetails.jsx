@@ -34,7 +34,7 @@ const AttendeeDetails = () => {
       updateTicket('profileAvatar', data.secure_url);
       toast.dismiss(toastId);
       toast.success('Picture uploaded successfully!', {
-        duration: 2000,
+        duration: 1000,
         position: 'right-center',
       });
       setTimeout(() => {
