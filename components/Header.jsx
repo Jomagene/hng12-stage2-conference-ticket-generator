@@ -24,18 +24,16 @@ const Header = () => {
           className="cursor-pointer hover:font-bold">
           My Tickets
         </TransitionLink>
-        <TransitionLink
-          href="/attendee-details"
-          className="cursor-pointer hover:font-bold">
-          About Project
-        </TransitionLink>
+        <span className="cursor-pointer hover:font-bold">About Project</span>
       </nav>
-      <button
+
+      <TransitionLink
+        href="/ticket-ready"
         className="flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 
        bg-[white] rounded-xl text-[#0A0C11] hover:scale-105 duration-500 btn">
         <p className="!text-sm sm:!text-base">MY TICKETS</p>
         <img src="/arrow.svg" alt="This is the logo" className="w-4" />
-      </button>
+      </TransitionLink>
     </header>
   );
 };

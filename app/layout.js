@@ -6,7 +6,7 @@ import { TicketProvider } from '@/context/TicketContext';
 export const metadata = {
   title: 'Conference ticket generator',
   description:
-    'This is a conference ticket generator using next.js, tailwindcss, zod for form validation, cloudinary for media storage and local storage for persistance',
+    'This is a conference ticket generator made using next.js, tailwindcss, zod for form validation, cloudinary for media storage and local storage for persistance',
 };
 
 export default function RootLayout({ children }) {
@@ -17,6 +17,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" type="image/png" href="F.png" />
       </head>
       <body className="antialiased font-[roboto] dark-bg">
         <TicketProvider>
