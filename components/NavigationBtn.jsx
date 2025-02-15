@@ -30,7 +30,7 @@ const NavigationBtn = ({
           className="py-3 px-6 rounded-[8px] border border-[#24A0B5] fontJeju text-[#24A0B5] flex-[1] flex items-center justify-center btn"
           onClick={() => {
             localStorage.removeItem('ticket');
-            router.push('/');
+            window.location.href = '/';
           }}>
           {btn1}
         </Button>

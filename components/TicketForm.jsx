@@ -87,7 +87,7 @@ const TicketForm = () => {
 
       <div className="flex flex-col gap-2">
         <p>Number of Tickets</p>
-        <Select value={ticketNumber} onValueChange={setTicketNumber}>
+        <Select value={String(ticketNumber)} onValueChange={setTicketNumber}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="1" />
           </SelectTrigger>
