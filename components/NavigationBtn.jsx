@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import TransitionLink from '@/lib/TransitionLink';
+import { Ticket } from 'lucide-react';
 
 const NavigationBtn = ({
   btn1,
@@ -17,13 +18,24 @@ const NavigationBtn = ({
   const router = useRouter();
   return (
     <div className="flex gap-4 sm:gap-6 flex-col-reverse sm:flex-row">
-      <TransitionLink
-        href={link1}
-        className="py-3 px-6 rounded-[8px] border border-[#24A0B5] fontJeju text-[#24A0B5] flex-[1] flex items-center justify-center btn">
-        <Button tabIndex={-1} className="focus:outline-none focus:ring-0">
+      {!final ? (
+        <TransitionLink
+          href={link1}
+          className="py-3 px-6 rounded-[8px] border border-[#24A0B5] fontJeju text-[#24A0B5] flex-[1] flex items-center justify-center btn">
+          <Button tabIndex={-1} className="focus:outline-none focus:ring-0">
+            {btn1}
+          </Button>
+        </TransitionLink>
+      ) : (
+        <Button
+          className="py-3 px-6 rounded-[8px] border border-[#24A0B5] fontJeju text-[#24A0B5] flex-[1] flex items-center justify-center btn"
+          onClick={() => {
+            localStorage.removeItem('ticket');
+            router.push('/');
+          }}>
           {btn1}
         </Button>
-      </TransitionLink>
+      )}
 
       {final ? (
         <Button
