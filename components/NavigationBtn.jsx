@@ -2,7 +2,6 @@
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 import TransitionLink from '@/lib/TransitionLink';
-import { useTicket } from '@/context/TicketContext';
 
 const NavigationBtn = ({
   btn1,

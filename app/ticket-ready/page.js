@@ -2,10 +2,12 @@
 import FinalTicket from '@/components/FinalTicket';
 import NavigationBtn from '@/components/NavigationBtn';
 import PageHeader from '@/components/PageHeader';
+import { useTicket } from '@/context/TicketContext';
 import html2canvas from 'html2canvas';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function PageThree() {
+  const { ticket, updateTicket } = useTicket();
   const handleDownload = async () => {
     const ticketElement = document.getElementById('final-ticket');
     if (!ticketElement) return;
@@ -34,7 +36,10 @@ export default function PageThree() {
       <FinalTicket />
       <NavigationBtn
         btn1="Book another Ticket"
-        btn2="Download Ticket"
+        btn2={`Download ${
+          ticket.ticketInfosType[0].toUpperCase() +
+          ticket.ticketInfosType.slice(1)
+        } Ticket`}
         link1="/"
         link2="/attendee-details"
         handleDownload={handleDownload}
