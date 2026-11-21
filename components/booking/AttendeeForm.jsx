@@ -8,18 +8,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Form, TextField } from '@/components/ui/form-fields';
 import { Divider, StepActions } from '@/components/layout/PageCard';
 import { EmptyState } from '@/components/layout/EmptyState';
 import { BOOKING_STEPS } from '@/config/site';
 import { ticketStore, useTicketStore } from '@/hooks/use-ticket-store';
 import { makeAttendeeSchema } from '@/lib/booking-schema';
 import { bookTicketAction } from '@/lib/server/actions';
+import { maxQuantity, resolveTier } from '@/lib/events';
 import { draftFor } from '@/lib/ticket-store';
 import { AvatarUploader } from './AvatarUploader';
-import { resolveTier } from './TicketSelectionForm';
 
 const FORM_FIELDS = new Set(['name', 'email', 'avatarUrl', 'extraAnswer']);
 
@@ -70,7 +69,7 @@ function AttendeeFormFields({ event, draft, tier }) {
   );
 
   async function onSubmit(values) {
-    const quantity = Math.min(draft.quantity, event.maxPerOrder, tier.remaining);
+    const quantity = Math.min(draft.quantity, maxQuantity(event, tier));
     const result = await bookTicketAction(event.slug, { ...values, tierId: tier.id, quantity });
 
     if (!result.ok) {
@@ -109,57 +108,24 @@ function AttendeeFormFields({ event, draft, tier }) {
 
         <Divider />
 
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Enter your name *</FormLabel>
-              <FormControl>
-                <Input autoComplete="name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
+        <TextField control={form.control} name="name" label="Enter your name *" autoComplete="name" />
+        <TextField
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Enter your email *</FormLabel>
-              <div className="relative">
-                <Mail className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2" aria-hidden />
-                <FormControl>
-                  <Input
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    placeholder="hello@avioflagos.io"
-                    className="pl-10"
-                    {...field}
-                  />
-                </FormControl>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Enter your email *"
+          icon={Mail}
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          placeholder="hello@avioflagos.io"
         />
-
         {event.extraQuestion && (
-          <FormField
+          <TextField
             control={form.control}
             name="extraAnswer"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{event.extraQuestion} (optional)</FormLabel>
-                <FormControl>
-                  <Textarea maxLength={300} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label={`${event.extraQuestion} (optional)`}
+            multiline
+            maxLength={300}
           />
         )}
 

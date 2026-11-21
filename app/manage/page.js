@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { manageHref } from '@/config/site';
 import { formatEventDate } from '@/lib/format';
 import { accentStyle } from '@/lib/color';
+import { seatTotals } from '@/lib/events';
 import { getManagedEventList } from '@/lib/server/queries';
 
 export const metadata = { title: 'Your events' };
@@ -40,8 +41,7 @@ export default async function ManageIndexPage({ searchParams }) {
       ) : (
         <ul className="flex flex-col gap-3">
           {events.map((event) => {
-            const sold = event.tiers.reduce((sum, t) => sum + t.sold, 0);
-            const capacity = event.tiers.reduce((sum, t) => sum + t.capacity, 0);
+            const { sold, capacity } = seatTotals(event);
             return (
               <li key={event.id} style={accentStyle(event.accentColor)}>
                 <Link

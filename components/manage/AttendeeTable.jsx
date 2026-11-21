@@ -2,7 +2,6 @@
 
 import { useDeferredValue, useState, useTransition } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +15,6 @@ function matches(attendee, query) {
 }
 
 export function AttendeeTable({ slug, attendees, timeZone, extraQuestion }) {
-  const router = useRouter();
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query.trim());
   const [pendingCode, setPendingCode] = useState(null);
@@ -28,7 +26,6 @@ export function AttendeeTable({ slug, attendees, timeZone, extraQuestion }) {
     startTransition(async () => {
       if (attendee.checkedInAt) await undoCheckInAction(slug, attendee.code);
       else await checkInAction(slug, attendee.code);
-      router.refresh();
       setPendingCode(null);
     });
   }

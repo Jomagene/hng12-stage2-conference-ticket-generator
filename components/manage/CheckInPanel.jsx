@@ -2,7 +2,6 @@
 
 import { useState, useTransition } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { CircleAlert, CircleCheck, CircleX, ScanLine } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,7 +16,6 @@ const RESULT_STYLES = {
 };
 
 export function CheckInPanel({ slug, timeZone, ticketPrefix }) {
-  const router = useRouter();
   const [code, setCode] = useState('');
   const [result, setResult] = useState(null);
   const [pending, startTransition] = useTransition();
@@ -28,10 +26,7 @@ export function CheckInPanel({ slug, timeZone, ticketPrefix }) {
     startTransition(async () => {
       const response = await checkInAction(slug, code);
       setResult(response.ok ? response : { status: 'error', error: response.error });
-      if (response.ok) {
-        setCode('');
-        router.refresh();
-      }
+      if (response.ok) setCode('');
     });
   }
 
@@ -41,7 +36,6 @@ export function CheckInPanel({ slug, timeZone, ticketPrefix }) {
     startTransition(async () => {
       await undoCheckInAction(slug, target);
       setResult(null);
-      router.refresh();
     });
   }
 

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { QRCodeSVG } from 'qrcode.react';
+import theme from '@/config/theme.cjs';
 import { accentStyle } from '@/lib/color';
 import { formatEventDate, pluralize } from '@/lib/format';
 import { cn } from '@/lib/utils';
@@ -25,7 +26,7 @@ function initials(name) {
     .toUpperCase();
 }
 
-// Accent vars go on the article itself so the exported PNG keeps the colour.
+// Accent vars go on the article itself so the exported PNG keeps the color.
 export function TicketCard({ ticket, ref }) {
   const { event } = ticket;
 
@@ -56,7 +57,7 @@ export function TicketCard({ ticket, ref }) {
           )}
         </div>
 
-        <dl className="grid h-40 grid-cols-2 grid-rows-[1fr_1fr_1.45fr] rounded-lg border border-[#133D44] bg-ticket p-1">
+        <dl className="grid h-40 grid-cols-2 grid-rows-[1fr_1fr_1.45fr] rounded-lg border border-line-card bg-ticket p-1">
           <Detail label="Name" className="border-r border-line-ticket">
             {ticket.name}
           </Detail>
@@ -86,7 +87,7 @@ export function TicketCard({ ticket, ref }) {
             size={56}
             level="M"
             bgColor="#ffffff"
-            fgColor="#02191D"
+            fgColor={theme.colors.page}
             title={`Ticket ${ticket.code}`}
           />
         </div>

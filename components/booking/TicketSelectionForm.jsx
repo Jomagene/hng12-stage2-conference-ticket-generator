@@ -7,22 +7,17 @@ import { Button } from '@/components/ui/button';
 import { StepActions } from '@/components/layout/PageCard';
 import { BOOKING_STEPS } from '@/config/site';
 import { ticketStore, useTicketStore } from '@/hooks/use-ticket-store';
+import { maxQuantity, resolveTier } from '@/lib/events';
 import { draftFor } from '@/lib/ticket-store';
 import { TierPicker } from './TierPicker';
-
-// Saved tier if it still has spots, otherwise the first tier that does.
-export function resolveTier(event, tierId) {
-  const available = event.tiers.filter((tier) => tier.remaining > 0);
-  return available.find((tier) => tier.id === tierId) ?? available[0] ?? null;
-}
 
 export function TicketSelectionForm({ event }) {
   const router = useRouter();
   const state = useTicketStore();
   const draft = draftFor(state, event.id);
   const tier = resolveTier(event, draft.tierId);
-  const maxQuantity = tier ? Math.min(event.maxPerOrder, tier.remaining) : 1;
-  const quantity = Math.min(draft.quantity, maxQuantity);
+  const limit = maxQuantity(event, tier);
+  const quantity = Math.min(draft.quantity, limit);
   const bookable = state.ready && !event.isPast && tier !== null;
 
   function handleSubmit(e) {
@@ -67,7 +62,7 @@ export function TicketSelectionForm({ event }) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {Array.from({ length: maxQuantity }, (_, i) => String(i + 1)).map((n) => (
+            {Array.from({ length: limit }, (_, i) => String(i + 1)).map((n) => (
               <SelectItem key={n} value={n}>
                 {n}
               </SelectItem>

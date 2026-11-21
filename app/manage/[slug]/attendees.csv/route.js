@@ -1,5 +1,5 @@
 import { getDb } from '@/lib/server/db';
-import { listAttendees } from '@/lib/server/events-repo';
+import { listAttendees } from '@/lib/server/repo';
 import { getManagedEvent } from '@/lib/server/manage-auth';
 import { toCsv } from '@/lib/csv';
 import { fromMinorUnits } from '@/lib/money';

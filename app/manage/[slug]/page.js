@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Download, ExternalLink, KeyRound, Pencil } from 'lucide-react';
-import { EmptyState } from '@/components/layout/EmptyState';
 import { EventTheme } from '@/components/layout/EventTheme';
 import { PageCard } from '@/components/layout/PageCard';
+import { AccessRequired } from '@/components/manage/AccessRequired';
 import { AttendeeTable } from '@/components/manage/AttendeeTable';
 import { CheckInPanel } from '@/components/manage/CheckInPanel';
 import { Button } from '@/components/ui/button';
 import { CopyField } from '@/components/ui/copy-field';
+import { attendeeTotals, seatTotals } from '@/lib/events';
 import { formatEventDate } from '@/lib/format';
 import { formatPrice } from '@/lib/money';
 import { getAttendees, getManagedEventForPage } from '@/lib/server/queries';
@@ -39,24 +40,11 @@ export default async function ManageEventPage({ params }) {
   const { slug } = await params;
   const event = await getManagedEventForPage(slug);
 
-  if (!event) {
-    return (
-      <PageCard title="Organizer access">
-        <EmptyState
-          title="Open your manage link"
-          description="This dashboard is private. Open the manage link you saved when you created the event, on this device."
-          actionLabel="Your events"
-          actionHref="/manage"
-        />
-      </PageCard>
-    );
-  }
+  if (!event) return <AccessRequired />;
 
   const attendees = await getAttendees(event.id);
-  const seatsBooked = event.tiers.reduce((sum, t) => sum + t.sold, 0);
-  const capacity = event.tiers.reduce((sum, t) => sum + t.capacity, 0);
-  const checkedIn = attendees.filter((a) => a.checkedInAt).reduce((sum, a) => sum + a.quantity, 0);
-  const bookedValue = attendees.reduce((sum, a) => sum + a.unitPriceMinor * a.quantity, 0);
+  const { sold: seatsBooked, capacity, remaining } = seatTotals(event);
+  const { checkedIn, bookedValueMinor: bookedValue } = attendeeTotals(attendees);
 
   return (
     <EventTheme color={event.accentColor}>
@@ -98,7 +86,7 @@ export default async function ManageEventPage({ params }) {
         />
 
         <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <Stat label="Seats booked" value={`${seatsBooked} / ${capacity}`} hint={`${capacity - seatsBooked} left`} />
+          <Stat label="Seats booked" value={`${seatsBooked} / ${capacity}`} hint={`${remaining} left`} />
           <Stat label="Bookings" value={attendees.length} />
           <Stat label="Checked in" value={`${checkedIn} / ${seatsBooked}`} />
           <Stat

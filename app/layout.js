@@ -2,6 +2,7 @@ import './globals.css';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { Toaster } from '@/components/ui/toaster';
 import { SITE } from '@/config/site';
+import theme from '@/config/theme.cjs';
 import { fontVariables } from '@/lib/fonts';
 
 const description = `${SITE.tagline} Create an event in minutes, share the link, check people in at the door.`;
@@ -14,7 +15,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#02191D',
+  themeColor: theme.colors.page,
   colorScheme: 'dark',
 };
 

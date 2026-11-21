@@ -14,7 +14,6 @@ export function EditEventForm({ slug, defaultValues }) {
     if (result.ok) {
       toast.success('Event updated');
       router.push(manageHref(slug));
-      router.refresh();
     }
     return result;
   }

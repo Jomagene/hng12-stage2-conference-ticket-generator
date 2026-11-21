@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg font-serif transition',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-card',
@@ -13,7 +13,7 @@ export const buttonVariants = cva(
       variant: {
         primary: 'bg-accent text-accent-fg hover:shadow-glow hover:brightness-110',
         outline: 'border border-accent text-accent hover:bg-accent/10 hover:shadow-glow',
-        light: 'bg-white text-[#0A0C11] hover:scale-105 hover:shadow-glow',
+        light: 'bg-white text-ink hover:scale-105 hover:shadow-glow',
         ghost: 'text-muted hover:bg-white/5 hover:text-white',
       },
       size: {

@@ -1,4 +1,4 @@
-const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'ds0sysk6d';
+const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -20,7 +20,9 @@ const nextConfig = {
     ];
   },
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: 'res.cloudinary.com', pathname: `/${cloudName}/**` }],
+    remotePatterns: cloudName
+      ? [{ protocol: 'https', hostname: 'res.cloudinary.com', pathname: `/${cloudName}/**` }]
+      : [],
   },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];

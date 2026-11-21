@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/server/db';
-import { findEventBySlug, verifyManageToken } from '@/lib/server/events-repo';
+import { findEventBySlug, verifyManageToken } from '@/lib/server/repo';
 import { manageCookieName, manageCookieOptions } from '@/lib/server/manage-auth';
 
 // Swap the token in the URL for a cookie so it doesn't stay in the address bar.

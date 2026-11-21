@@ -21,7 +21,7 @@ export function FormField(props) {
   );
 }
 
-export function useFormField() {
+function useFormField() {
   const field = useContext(FormFieldContext);
   const item = useContext(FormItemContext);
   if (!field || !item) throw new Error('useFormField must be used inside <FormField> and <FormItem>');

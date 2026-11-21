@@ -26,7 +26,7 @@ export function TierPicker({ event, value, onChange, disabled }) {
                 <p className="text-2xl font-semibold">{formatPrice(tier.priceMinor, event.currency)}</p>
                 <div>
                   <p className="uppercase">{tier.description || tier.name}</p>
-                  <p className="text-sm text-[#D9D9D9]">
+                  <p className="text-sm text-subtle">
                     {soldOut ? (
                       'Sold out'
                     ) : (

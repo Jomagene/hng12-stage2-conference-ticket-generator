@@ -2,27 +2,8 @@ import Link from 'next/link';
 import { ArrowRight, CalendarDays, MapPin } from 'lucide-react';
 import { accentStyle } from '@/lib/color';
 import { formatEventDate } from '@/lib/format';
-import { formatPrice } from '@/lib/money';
+import { availability, priceSummary } from '@/lib/events';
 import { cn } from '@/lib/utils';
-
-export function priceSummary(event) {
-  const prices = event.tiers.map((tier) => tier.priceMinor);
-  if (prices.length === 0) return '';
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
-  if (max === 0) return 'Free';
-  if (min === max) return formatPrice(min, event.currency);
-  if (min === 0) return `Free – ${formatPrice(max, event.currency)}`;
-  return `From ${formatPrice(min, event.currency)}`;
-}
-
-export function availability(event) {
-  if (event.isPast) return { label: 'Ended', tone: 'muted' };
-  const remaining = event.tiers.reduce((sum, tier) => sum + tier.remaining, 0);
-  if (remaining === 0) return { label: 'Sold out', tone: 'muted' };
-  if (remaining <= 10) return { label: `Only ${remaining} left`, tone: 'warn' };
-  return { label: `${remaining.toLocaleString('en-US')} spots left`, tone: 'ok' };
-}
 
 export function EventCard({ event }) {
   const status = availability(event);

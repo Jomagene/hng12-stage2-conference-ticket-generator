@@ -1,3 +1,5 @@
+import theme from './theme.cjs';
+
 export const LIMITS = Object.freeze({
   maxTiers: 6,
   maxPerOrder: 10,
@@ -51,7 +53,7 @@ export const TIME_ZONES = Object.freeze([
   'UTC',
 ]);
 
-export const DEFAULT_ACCENT = '#24A0B5';
+export const DEFAULT_ACCENT = theme.defaultAccent;
 export const ACCENT_PRESETS = Object.freeze([
   { value: '#24A0B5', label: 'Teal' },
   { value: '#7C5CFF', label: 'Violet' },

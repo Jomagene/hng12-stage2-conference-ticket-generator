@@ -1,6 +1,7 @@
 'use client';
 
 import { Toaster as HotToaster } from 'react-hot-toast';
+import theme from '@/config/theme.cjs';
 
 export function Toaster() {
   return (
@@ -8,12 +9,12 @@ export function Toaster() {
       position="bottom-right"
       toastOptions={{
         style: {
-          background: '#08252B',
+          background: theme.colors.panel,
           color: '#fff',
-          border: '1px solid #197686',
+          border: `1px solid ${theme.colors.line.DEFAULT}`,
           borderRadius: '12px',
         },
-        success: { iconTheme: { primary: '#24A0B5', secondary: '#fff' } },
+        success: { iconTheme: { primary: theme.defaultAccent, secondary: '#fff' } },
       }}
     />
   );
