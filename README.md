@@ -8,7 +8,7 @@ Built with **Next.js 16 (App Router)**, **React 19**, **Postgres + Drizzle ORM**
 
 **For organizers**
 
-- **Create unlimited events**, each with its own name, venue, date & time zone, currency (USD, NGN, GHS, KES, XAF, XOF, EUR…), and brand colour.
+- **Create unlimited events**, each with its own name, venue, date & time zone, currency (USD, NGN, GHS, KES, XAF, XOF, EUR…), and brand color.
 - **Ticket types**: up to 6 per event, free or paid, each with its own capacity. Booked seats are protected when editing.
 - **Booking options**: require a photo (anti-resale) or not, ask a custom question, limit tickets per booking.
 - **No accounts:** you get a public booking link plus a private manage link. Open the manage link on any device to unlock the dashboard.
@@ -42,51 +42,63 @@ On first start the terminal prints the **organizer links** for the demo events (
 | `npm run build` / `npm start` | Production build / serve                                   |
 | `npm run lint`                | ESLint (Next core-web-vitals + React Compiler rules)       |
 | `npm test`                    | Unit + database tests (Vitest, in-memory Postgres)         |
+| `npm run test:e2e`            | Browser tests (Playwright); run `npm run build` first      |
 | `npm run check`               | Lint + tests + build; run before pushing                   |
 | `npm run format`              | Prettier                                                   |
 | `npm run db:generate`         | Create a migration after editing `lib/server/db/schema.js` |
 | `npm run db:migrate`          | Apply migrations to `DATABASE_URL`                         |
 
-## Deploying (e.g. Vercel)
+First time running the browser tests: `npx playwright install chromium` (or set `PLAYWRIGHT_CHROMIUM_PATH` to an installed Chromium). CI (`.github/workflows/ci.yml`) runs lint, unit tests, build and browser tests on every pull request.
 
-1. Create a free Postgres database (e.g. [Neon](https://neon.tech) or [Supabase](https://supabase.com)) and copy its connection string.
-2. Set the environment variables below in your hosting project.
-3. Deploy. On Vercel the `vercel-build` script runs `db:migrate` and then `next build`, so the schema is always up to date.
+## Deploying (Vercel + Supabase)
+
+1. Create a Supabase project and copy two connection strings from **Connect**: the **Transaction pooler** (port 6543) and the **Session pooler** (port 5432). Add `?sslmode=require` to both.
+2. In Vercel, set `DATABASE_URL` (transaction pooler) and `DATABASE_DIRECT_URL` (session pooler) for Production and Preview, plus `NEXT_PUBLIC_SITE_URL`.
+3. Deploy. The `vercel-build` script runs `db:migrate` (over the session pooler) and then `next build`.
+
+Any other Postgres works too (Neon, RDS…): set `DATABASE_URL`, and `DATABASE_DIRECT_URL` only if your provider uses a pooler.
+
+Tables have Row Level Security enabled with no policies. The app connects as the table owner and isn't affected; Supabase's auto-generated REST API gets no access.
 
 ### Environment variables
 
-| Variable                               | Purpose                                                                     |
-| -------------------------------------- | --------------------------------------------------------------------------- |
-| `DATABASE_URL`                         | Postgres connection string. **Required in production**; unset = embedded DB |
-| `NEXT_PUBLIC_SITE_URL`                 | Public URL, used for Open Graph links                                       |
-| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`    | Cloudinary account for attendee photos                                      |
-| `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` | Unsigned upload preset (public; sign uploads server-side before launch)     |
+Public defaults live in the committed `.env`. Secrets go in `.env.local` locally (see `.env.example`) and in your hosting provider's settings.
+
+| Variable                               | Purpose                                                                                     |
+| -------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                         | Postgres connection string used by the app. **Required in production**; unset = embedded DB |
+| `DATABASE_DIRECT_URL`                  | Connection used by migrations (Supabase session pooler). Defaults to `DATABASE_URL`         |
+| `NEXT_PUBLIC_SITE_URL`                 | Public URL, used for Open Graph links                                                       |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`    | Cloudinary account for attendee photos                                                      |
+| `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` | Unsigned upload preset (public; sign uploads server-side before launch)                     |
 
 ## Architecture
 
 ```
 app/                      Routes (thin server components)
   page.js                   public events list
-  events/[slug]/            booking: step 1 (tickets) → details/ (attendee) — themed per event
+  events/[slug]/            booking: step 1 (tickets) → details/ (attendee), themed per event
   tickets/[code]/           a ticket (step 3 after booking)
   my-tickets/               tickets saved on this device
   manage/                   organizer: your events, new/, [slug]/ dashboard, edit/,
                             access/[token] (manage link), attendees.csv (export)
 components/
-  ui/  layout/  booking/  ticket/  events/  manage/
-config/                   Allowed currencies, time zones, colours, limits; site & routes
+  ui/                       primitives and form fields (TextField, SelectField, CheckboxField…)
+  layout/  booking/  ticket/  events/  manage/
+config/                   event options, site routes, upload settings, theme.cjs (palette)
 lib/                      Framework-free logic, unit-tested
   booking-schema.js         per-event booking rules (shared by form + server)
   event-schema.js           organizer form rules (shared by form + server)
+  events.js                 seat totals, tier selection, price summary, availability
   ticket-store.js           device storage: drafts per event + ticket snapshots
   money.js  timezone.js  color.js  slug.js  csv.js  ticket-id.js  upload-avatar.js
   server/
-    db/schema.js            tables: events, ticket_tiers, tickets
-    db/index.js             Postgres via DATABASE_URL, else embedded PGlite
-    events-repo.js          every query; tested against a real (in-memory) Postgres
+    db/                     schema, connection (Postgres or embedded PGlite), demo seed
+    repo/                   all queries: events, bookings, check-in, mappers, tokens
     actions.js              Server Actions: book, create/update event, check in
     manage-auth.js          manage-link cookie checks
 drizzle/                  SQL migrations
+e2e/                      Playwright browser tests
 ```
 
 **Key design points**
