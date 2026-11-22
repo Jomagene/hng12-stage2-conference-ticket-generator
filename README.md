@@ -2,7 +2,7 @@
 
 Ticz lets **any organizer** create an event in a couple of minutes, share a booking link, and check attendees in at the door. **Attendees** book in three steps with no account and get a personalised ticket with their photo, a unique reference and a QR code.
 
-Built with **Next.js 16 (App Router)**, **React 19**, **Postgres + Drizzle ORM**, **Tailwind CSS**, **react-hook-form + zod** and **Cloudinary**.
+Built with **TypeScript (strict)**, **Next.js 16 (App Router)**, **React 19**, **Postgres + Drizzle ORM**, **Tailwind CSS**, **react-hook-form + zod** and **Cloudinary**.
 
 ## Features
 
@@ -41,11 +41,12 @@ On first start the terminal prints the **organizer links** for the demo events (
 | `npm run dev`                 | Development server                                         |
 | `npm run build` / `npm start` | Production build / serve                                   |
 | `npm run lint`                | ESLint (Next core-web-vitals + React Compiler rules)       |
+| `npm run typecheck`           | TypeScript in strict mode                                  |
 | `npm test`                    | Unit + database tests (Vitest, in-memory Postgres)         |
 | `npm run test:e2e`            | Browser tests (Playwright); run `npm run build` first      |
-| `npm run check`               | Lint + tests + build; run before pushing                   |
+| `npm run check`               | Lint + typecheck + tests + build; run before pushing       |
 | `npm run format`              | Prettier                                                   |
-| `npm run db:generate`         | Create a migration after editing `lib/server/db/schema.js` |
+| `npm run db:generate`         | Create a migration after editing `lib/server/db/schema.ts` |
 | `npm run db:migrate`          | Apply migrations to `DATABASE_URL`                         |
 
 First time running the browser tests: `npx playwright install chromium` (or set `PLAYWRIGHT_CHROMIUM_PATH` to an installed Chromium). CI (`.github/workflows/ci.yml`) runs lint, unit tests, build and browser tests on every pull request.
@@ -76,7 +77,7 @@ Public defaults live in the committed `.env`. Secrets go in `.env.local` locally
 
 ```
 app/                      Routes (thin server components)
-  page.js                   public events list
+  page.tsx                  public events list
   events/[slug]/            booking: step 1 (tickets) → details/ (attendee), themed per event
   tickets/[code]/           a ticket (step 3 after booking)
   my-tickets/               tickets saved on this device
@@ -85,18 +86,19 @@ app/                      Routes (thin server components)
 components/
   ui/                       primitives and form fields (TextField, SelectField, CheckboxField…)
   layout/  booking/  ticket/  events/  manage/
-config/                   event options, site routes, upload settings, theme.cjs (palette)
+config/                   event options, site routes, upload settings, theme.ts (palette)
 lib/                      Framework-free logic, unit-tested
-  booking-schema.js         per-event booking rules (shared by form + server)
-  event-schema.js           organizer form rules (shared by form + server)
-  events.js                 seat totals, tier selection, price summary, availability
-  ticket-store.js           device storage: drafts per event + ticket snapshots
-  money.js  timezone.js  color.js  slug.js  csv.js  ticket-id.js  upload-avatar.js
+  booking-schema.ts         per-event booking rules (shared by form + server)
+  event-schema.ts           organizer form rules (shared by form + server)
+  events.ts                 seat totals, tier selection, price summary, availability
+  types.ts                  domain types (derived from the zod schemas where possible)
+  ticket-store.ts           device storage: drafts per event + ticket snapshots
+  money.ts  timezone.ts  color.ts  slug.ts  csv.ts  ticket-id.ts  upload-avatar.ts
   server/
     db/                     schema, connection (Postgres or embedded PGlite), demo seed
     repo/                   all queries: events, bookings, check-in, mappers, tokens
-    actions.js              Server Actions: book, create/update event, check in
-    manage-auth.js          manage-link cookie checks
+    actions.ts              Server Actions: book, create/update event, check in
+    manage-auth.ts          manage-link cookie checks
 drizzle/                  SQL migrations
 e2e/                      Playwright browser tests
 ```
