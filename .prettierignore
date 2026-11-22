@@ -1,0 +1,5 @@
+drizzle/meta
+package-lock.json
+.next
+.data
+next-env.d.ts
